@@ -4,10 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>KROPP</title>
+    <link rel="stylesheet" href="./normalize.css"/>
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
-    <header class="header">
+    <header class="header container-wide">
       <a href="/" class="header__logo">
         <img
           class="header__logo-image"
@@ -53,7 +54,7 @@
     </header>
     <main class="main">
       <h1 class="visually-hidden">KROPP FITNESS</h1>
-      <section class="events">
+      <section class="events container-wide">
         <h2 class="visually-hidden">KROPP EVENTS</h2>
         <div class="events__body">
           <p class="events__info">
@@ -221,7 +222,7 @@
           <button type="button" class="join-us__video-button">Play</button>
         </div>
         <div class="join-us__body container">
-          <h2 class="join-us__title">Join us</h2>
+          <h2 class="join-us__title title-with-arrow">Join us</h2>
           <form class="join-us__form" action="" method="post">
             <header class="join-us__form-header">
               <h3
@@ -446,8 +447,7 @@
     </main>
     <footer class="footer">
       <h2 class="visually-hidden">Footer information</h2>
-      <div class="footer__header">
-        <div class="footer__header-inner container">
+      <div class="footer__header container">
           <a href="/" class="footer__logo">
             <img
               class="footer__logo-image"
@@ -466,9 +466,7 @@
             For any additional inquiries
           </p>
         </div>
-      </div>
-      <div class="footer__body">
-        <div class="footer__body-inner container">
+      <div class="footer__body container">
           <div class="footer__column">
             <h3 class="footer__column-title">About</h3>
             <div class="footer__column-information">
@@ -499,7 +497,8 @@
               <address class="footer__address">
                 <ul class="footer__column-list">
                   <li class="footer__column-item">
-                    68 Jay Street, Brooklyn, NY 11201, United States
+                    68 Jay Street, Brooklyn,<br>
+                    NY 11201, United States
                   </li>
                   <li class="footer__column-item">
                     <a href="mailto:kropp@qodeinteractive.com"
@@ -514,7 +513,7 @@
             </div>
           </div>
           <div class="footer__column">
-            <h3 class="footer__column-title">Start now</h3>
+            <h3 class="footer__column-title title-with-arrow">Start now</h3>
             <div class="footer__column-information">
               <form class="footer__form">
                 <label for="email" class="visually-hidden">Email</label>
@@ -523,8 +522,9 @@
                   name="email"
                   id="email"
                   class="input footer__input"
+                  placeholder="Email"
                 />
-                <button type="submit" title="Subscribe">
+                <button type="submit" title="Subscribe" class="footer__form-button">
                   <span class="visually-hidden">Subscribe</span>
                 </button>
               </form>
@@ -605,12 +605,14 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="footer__bottom container">
-        <small class="footer__copyright">
-          © 2022 Qode Interactive, All Rights Reserved |
+      <div class="footer__bottom">
+
+<div class="footer__bottom-inner container">
+          <small class="footer__copyright">
+          © <time datetime="2022">2022</time> Qode Interactive, All Rights Reserved |
           <a href="#">Privacy Policy</a> | <a href="#">Contact Us</a>
         </small>
+</div>
       </div>
     </footer>
   </body>

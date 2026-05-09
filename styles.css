@@ -22,219 +22,6 @@
     font-display: swap;
 }
 
-/* Нормализация */
-
-/**
-  Нормализация блочной модели
- */
-*,
-::before,
-::after {
-  box-sizing: border-box;
-}
-
-/**
-  Убираем внутренние отступы слева тегам списков,
-  у которых есть атрибут class
- */
-:where(ul, ol):where([class]) {
-  padding-left: 0;
-}
-
-/**
-  Убираем внешние отступы body и двум другим тегам,
-  у которых есть атрибут class
- */
-body,
-:where(blockquote, figure, fieldset):where([class]) {
-  margin: 0;
-}
-
-/**
-  Убираем внешние отступы вертикали нужным тегам,
-  у которых есть атрибут class
- */
-:where(
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6,
-  p,
-  ul,
-  ol,
-  dl
-):where([class]) {
-  margin-block: 0;
-}
-
-:where(dd[class]) {
-  margin-left: 0;
-}
-
-:where(fieldset[class]) {
-  padding: 0;
-  border: none;
-}
-
-/**
-  Убираем стандартный маркер маркированному списку,
-  у которого есть атрибут class
- */
-:where(ul[class]) {
-  list-style: none;
-}
-
-:where(address[class]) {
-  font-style: normal;
-}
-
-/**
-  Обнуляем вертикальные внешние отступы параграфа,
-  объявляем локальную переменную для внешнего отступа вниз,
-  чтобы избежать взаимодействие с более сложным селектором
- */
-p {
-  --paragraphMarginBottom: 24px;
-
-  margin-block: 0;
-}
-
-/**
-  Внешний отступ вниз для параграфа без атрибута class,
-  который расположен не последним среди своих соседних элементов
- */
-p:where(:not([class]):not(:last-child)) {
-  margin-bottom: var(--paragraphMarginBottom);
-}
-
-
-/**
-  Упрощаем работу с изображениями и видео
- */
-img,
-video {
-  display: block;
-  max-width: 100%;
-  height: auto;
-}
-
-/**
-  Наследуем свойства шрифт для полей ввода
- */
-input,
-textarea,
-select,
-button {
-  font: inherit;
-}
-
-html {
-  /**
-    Пригодится в большинстве ситуаций
-    (когда, например, нужно будет "прижать" футер к низу сайта)
-   */
-  height: 100%;
-  /**
-    Убираем скачок интерфейса по горизонтали
-    при появлении / исчезновении скроллбара
-   */
-  scrollbar-gutter: stable;
-  /**
-    Плавный скролл
-   */
-  scroll-behavior: smooth;
-}
-
-body {
-  /**
-    Пригодится в большинстве ситуаций
-    (когда, например, нужно будет "прижать" футер к низу сайта)
-   */
-  min-height: 100%;
-  /**
-    Унифицированный интерлиньяж
-   */
-  line-height: 1.5;
-}
-
-/**
-  Нормализация высоты элемента ссылки при его инспектировании в DevTools
- */
-a:where([class]) {
-  display: inline-flex;
-}
-
-/**
-  Курсор-рука при наведении на элемент
- */
-button,
-label {
-  cursor: pointer;
-}
-
-/**
-  Убирает серую подсветку при тапе на мобильных устройствах (iOS/Android)
- */
-button {
-  -webkit-tap-highlight-color: transparent;
-}
-
-/**
-  Приводим к единому цвету svg-элементы
-  (за исключением тех, у которых уже указан
-  атрибут fill со значением 'none' или начинается с 'url')
- */
-:where([fill]:not(
-  [fill="none"],
-  [fill^="url"]
-)) {
-  fill: currentColor;
-}
-
-/**
-  Приводим к единому цвету svg-элементы
-  (за исключением тех, у которых уже указан
-  атрибут stroke со значением 'none')
- */
-:where([stroke]:not(
-  [stroke="none"],
-  [stroke^="url"]
-)) {
-  stroke: currentColor;
-}
-
-/**
-  Чиним баг задержки смены цвета при взаимодействии с svg-элементами
- */
-svg * {
-  transition-property: fill, stroke;
-}
-
-/**
-  Приведение рамок таблиц в классический 'collapse' вид
- */
-:where(table) {
-  border-collapse: collapse;
-  border-color: currentColor;
-}
-
-/**
-  Удаляем все анимации и переходы для людей,
-  которые предпочитают их не использовать
- */
-@media (prefers-reduced-motion: reduce) {
-  *,
-  ::before,
-  ::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-}
-
 :root {
     --color-dark-alternate: #131619;
     --color-grey-dark: #404040;
@@ -297,7 +84,17 @@ body {
 }
 
 a {
-    text-decoration: none;
+  color: var(--color-light)
+}
+
+svg *[fill] { fill: currentColor }
+svg *[stroke] { stroke: currentColor }
+svg * {
+  transition-duration: var(--transition-duration);
+}
+
+svg * {
+  transition-property: fill, stroke, opacity;
 }
 
 button, input {
@@ -327,6 +124,8 @@ h4 {
     border-radius: var(--border-radius);
 
     background-color: var(--color-light);
+
+    text-decoration: none;
 
 }
 
@@ -411,6 +210,20 @@ h4 {
   position: absolute;
   top: -0.5em;
   left: -0.5em;
+}
+
+.title-with-arrow::after {
+  content: "";
+
+  width: 0.7em;
+  aspect-ratio: 1;
+
+  background: url(./icons/arrow.svg) center / contain no-repeat;
+
+  scale: 1 -1;
+
+  display: inline-block;
+  margin-left: 0.15em;
 }
 
 /* HEADER */
@@ -578,14 +391,10 @@ h4 {
 
 /* Motivation */
 
-.motivation {
-}
-
 .motivation__item:nth-child(odd) {
   background-color: var(--color-dark);
 }
-.motivation__body {
-}
+
 .motivation__card {
   display: flex;
   gap: clamp(20px, 10.42vw, 200px);
@@ -718,24 +527,6 @@ h4 {
   margin-top: -0.4em;
 }
 
-.join-us__title::after {
-  content: "";
-
-  width: 0.7em;
-  aspect-ratio: 1;
-
-  background: url(./icons/arrow.svg) center / contain no-repeat;
-
-  scale: 1 -1;
-
-  display: inline-block;
-  margin-left: 0.15em;
-}
-
-.join-us__form {
-
-}
-
 .join-us__form-header {
   margin-bottom: 52px;
 
@@ -834,10 +625,6 @@ h4 {
 
 /* Header */
 
-.family {
-
-}
-
 .family__header {
   display: flex;
   flex-direction: column;
@@ -888,10 +675,6 @@ h4 {
   margin-bottom: 30px;
 }
 
-.calculate__form {
-  
-}
-
 .calculate__form-body {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -899,10 +682,6 @@ h4 {
   row-gap: 18px;
 
   margin-bottom: 26px;
-}
-
-.input {
-
 }
 
 .calculate__form-input--wide {
@@ -978,6 +757,127 @@ h4 {
   right: 0;
   bottom: 0;
 }
+
+/* Footer */
+
+.footer {
+  background-color: var(--color-dark);
+}
+
+.footer__header,
+.footer__body {
+  display: grid;
+  column-gap: 60px;
+  row-gap: 30px;
+}
+.footer__header { 
+  padding-top: 100px;
+  margin-bottom: 60px;
+  grid-template-columns: 20.3% auto;
+}
+
+.footer__logo-image {
+  object-fit: contain;
+}
+
+.footer__header-subtitle {
+  text-align: left;
+}
+
+.footer__body {
+  padding-bottom: 80px;
+  grid-template-columns: 20.3% repeat(3, 1fr);
+}
+
+.footer__column-title {
+  font-size: 22px;
+}
+
+.footer__column-title:not(:last-child) {
+  margin-bottom: 14px;
+}
+
+.footer__column-title.title-with-arrow {
+  position: relative;
+}
+
+.footer__column-title.title-with-arrow::after {
+  scale: -1 1;
+  margin-left: 0.45em;
+}
+
+.footer__schedule:not(:last-child) {
+  margin-bottom: 12px;
+}
+
+.footer__address .footer__column-item:first-child {
+  margin-bottom: 35px;
+}
+
+.footer__form {
+  position: relative;
+  z-index: 0;
+
+  margin-bottom: 50px;
+}
+
+.footer__input {
+  border-color: var(--color-light);
+  padding-right: 70px;
+}
+
+.footer__form-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  height: 100%;
+  aspect-ratio: 1;
+
+  border: var(--border);
+  border-radius: 50%;
+
+  z-index: 1;
+
+  background: url(./icons/arrow-top-right.svg) center / 70% no-repeat;
+}
+
+.footer__form-button:hover {
+  filter: invert(1);
+  border-color: var(--color-dark);
+  background-color: var(--color-dark);
+}
+
+.footer__input:focus + .footer__form-button {
+  filter: invert(1);
+}
+
+.footer__input:focus + .footer__form-button:hover {
+  background-color: var(--color-dark);
+  filter: invert(0);
+}
+
+.footer__soc1als-list {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  gap: 18px;
+}
+
+.footer__soc1als-link {
+  display: flex;
+  width: 24px;
+}
+
+.footer__soc1als-link:hover {
+  color: var(--color-grey-light);
+}
+
+.footer__bottom {
+  background-color: var(--color-dark-alternate);
+}
+
+
 
 @media (max-width: 1900px) {
   .motivation__image {
@@ -1101,6 +1001,14 @@ h4 {
       flex-direction: column;
       gap: 40px;
     }
+
+    .footer__header {
+      grid-template-columns: auto;
+    }
+
+    .footer__body {
+      grid-template-columns: 30% 30%;
+    }
 }
 
 
@@ -1140,6 +1048,20 @@ h4 {
   .join-us__body {
       padding-bottom: 70px;
     }
+
+  .footer__header {
+    padding-top: 60px;
+    margin-bottom: 30px;
+  }
+  
+  .footer__body {
+    grid-template-columns: 300px;
+    padding-bottom: 40px;
+  }
+
+  .footer__form {
+    margin-bottom: 20px;
+  }
 
 }
 
