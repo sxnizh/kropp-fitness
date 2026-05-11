@@ -210,3 +210,13 @@ svg * {
     scroll-behavior: auto !important;
   }
 }
+
+/* Нормализация селекта для сафари */
+
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  border-radius: 8px;
+  background-color: #fff;
+  font: inherit;
+}
